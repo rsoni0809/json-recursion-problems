@@ -161,9 +161,38 @@ function findJsonDepth(obj, depth = 0) {
 }
 
 
-// ***************************** Find Json Object depth********************
+// ***************************** Recursive JSON Deep copy********************
+
+let deepObj = {
+  lamp: 2,
+  candle: 2,
+  pillow: { big: 2, small: 4 },
+  bathroom: {
+    toilet: 1,
+    shower: [
+      { shampoo: 1, conditioner: 2 },
+      { shampoo: 8, conditioner: 9 }
+    ]
+  }
+};
+
+function cloneDeepCopy(obj) {
+  if (typeof obj !== "object") {
+    return obj;
+  }
+  let copyObj = Array.isArray(obj) ? [] : {};
+  for (let key in obj) {
+    copyObj[key] = cloneDeepCopy(obj[key]);
+  }
+  return copyObj;
+}
+const newObj = cloneDeepCopy(deepObj);
+newObj.bathroom.shower[1].shampoo = 111;
+console.log("existingObj", deepObj);
+console.log("newObj", newObj);
 
 
+// ***************************** End of Recursive JSON Deep copy********************
 
 
 
